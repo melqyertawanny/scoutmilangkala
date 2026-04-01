@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>LJA Milangkala ke-10 SMK Cibening</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800;900&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --black: #0a0a0a;
+      --brown: #5c2d0e;
+      --gold: #f5c518;
+      --gold-light: #ffe066;
+      --white: #ffffff;
+      --shadow: 4px 4px 0px #0a0a0a;
+      --shadow-hover: 2px 2px 0px #0a0a0a;
+    }
+
+    html, body {
+      min-height: 100%;
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(160deg, #0a0a0a 0%, #3b1505 38%, #8b5e1a 68%, #f5c518 100%);
+      background-attachment: fixed;
+    }
+
+    /* Noise overlay */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.07'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 0;
+      opacity: 0.18;
+    }
+
+    .page-wrapper {
+      position: relative;
+      z-index: 1;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 24px 16px 48px;
+    }
+
+    /* ── Corner Buttons ── */
+    .corner-btn {
+      position: fixed;
+      top: 18px;
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      border: 2.5px solid rgba(255,255,255,0.35);
+      background: rgba(255,255,255,0.12);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.15s;
+      z-index: 100;
+    }
+    .corner-btn:hover { background: rgba(255,255,255,0.22); transform: scale(1.08); }
+    .corner-btn:active { transform: scale(0.95); }
+    .corner-btn img { width: 20px; height: 20px; filter: invert(1); }
+    .corner-btn.left  { left: 18px; }
+    .corner-btn.right { right: 18px; }
+
+    /* ── Card Container ── */
+    .card {
+      width: 100%;
+      max-width: 400px;
+      margin-top: 28px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0;
+    }
+
+    /* ── Logo Row ── */
+    .logo-row {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 20px;
+      margin-bottom: 20px;
+    }
+    .logo-wrap {
+      width: 74px; height: 74px;
+      border-radius: 50%;
+      border: 3px solid rgba(255,255,255,0.5);
+      background: rgba(255,255,255,0.12);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      overflow: hidden;
+      display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+    }
+    .logo-wrap img {
+      width: 100%; height: 100%;
+      object-fit: contain;
+      padding: 8px;
+    }
+    .logo-divider {
+      width: 2px; height: 48px;
+      background: linear-gradient(to bottom, transparent, rgba(255,255,255,0.5), transparent);
+    }
+
+    /* ── Title ── */
+    .title-block {
+      text-align: center;
+      margin-bottom: 10px;
+    }
+    .title-sub {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--gold-light);
+      opacity: 0.85;
+      margin-bottom: 6px;
+    }
+    .title-main {
+      font-size: 24px;
+      font-weight: 900;
+      line-height: 1.2;
+      color: var(--white);
+      text-shadow: 3px 3px 0 rgba(0,0,0,0.4);
+      letter-spacing: -0.5px;
+    }
+    .title-main span {
+      color: var(--gold);
+      display: block;
+    }
+    .title-school {
+      font-size: 13px;
+      font-weight: 600;
+      color: rgba(255,255,255,0.7);
+      margin-top: 4px;
+      letter-spacing: 0.5px;
+    }
+
+    /* ── Divider ── */
+    .divider {
+      width: 60px; height: 3px;
+      background: linear-gradient(90deg, var(--gold), var(--gold-light));
+      border-radius: 99px;
+      margin: 16px auto 24px;
+    }
+
+    /* ── Buttons ── */
+    .btnq-group {
+      width: 50%;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      margin-bottom: 3px;
+    }
+    .btn-group {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      margin-bottom: 32px;
+    }
+.linq-btn {
+      display: flex;
+      justify-content: space-between;
+      width: 100%;
+      padding: 16px 22px;
+      background: #fff;
+      border: 1.5px solid var(--black);
+      border-radius: 99px;
+      box-shadow: var(--shadow);
+      font-family: 'Poppins', sans-serif;
+      font-size: 10px;
+      font-weight: 700;
+      color: var(--black);
+      cursor: pointer;
+      text-decoration: none;
+      transition: box-shadow 0.12s ease, transform 0.12s ease, background 0.15s;
+      position: relative;
+      overflow: hidden;
+    }
+    .linq-btn::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(245,197,24,0.18) 0%, transparent 60%);
+      opacity: 0;
+      transition: opacity 0.2s;
+      border-radius: inherit;
+    }
+    .linq-btn:hover::before { opacity: 1; }
+    .linq-btn:hover {
+      box-shadow: var(--shadow-hover);
+      transform: translate(2px, 2px);
+    }
+    .linq-btn:active {
+      box-shadow: 1px 1px 0 var(--black);
+      transform: translate(3px, 3px);
+    }
+
+    .linq-btn .btnq-icon {
+      width: 24px; height: 24px;
+      flex-shrink: 0;
+      opacity: 0.7;
+    }
+    .linq-btn .btnq-label { flex: 1; }
+    .linq-btn .btnq-arrow {
+      width: 18px; height: 18px;
+      flex-shrink: 0;
+      opacity: 0.4;
+    }
+    .link-btn {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+      padding: 15px 22px;
+      background: #fff;
+      border: 2.5px solid var(--black);
+      border-radius: 99px;
+      box-shadow: var(--shadow);
+      font-family: 'Poppins', sans-serif;
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--black);
+      cursor: pointer;
+      text-decoration: none;
+      transition: box-shadow 0.12s ease, transform 0.12s ease, background 0.15s;
+      position: relative;
+      overflow: hidden;
+    }
+    .link-btn::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(245,197,24,0.18) 0%, transparent 60%);
+      opacity: 0;
+      transition: opacity 0.2s;
+      border-radius: inherit;
+    }
+    .link-btn:hover::before { opacity: 1; }
+    .link-btn:hover {
+      box-shadow: var(--shadow-hover);
+      transform: translate(2px, 2px);
+    }
+    .link-btn:active {
+      box-shadow: 1px 1px 0 var(--black);
+      transform: translate(3px, 3px);
+    }
+
+    .link-btn .btn-icon {
+      width: 24px; height: 24px;
+      flex-shrink: 0;
+      opacity: 0.7;
+    }
+    .link-btn .btn-label { flex: 1; text-align: center; }
+    .link-btn .btn-arrow {
+      width: 18px; height: 18px;
+      flex-shrink: 0;
+      opacity: 0.4;
+    }
+
+    /* Button color accents */
+    .link-btn.btn-1 { border-left: 6px solid #e63946; }
+    .link-btn.btn-2 { border-left: 6px solid #2196f3; }
+    .link-btn.btn-3 { border-left: 6px solid #f5c518; }
+
+    /* ── Social Icons ── */
+    .socials-label {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.55);
+      margin-bottom: 14px;
+      text-align: center;
+    }
+    .socials-row {
+      display: flex;
+      gap: 18px;
+      margin-bottom: 36px;
+    }
+    .social-btn {
+      width: 56px; height: 56px;
+      border-radius: 50%;
+      border: 2px solid rgba(255,255,255,0.3);
+      background: rgba(255,255,255,0.1);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      display: flex; align-items: center; justify-content: center;
+      text-decoration: none;
+      transition: transform 0.2s, background 0.2s, border-color 0.2s;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.25);
+    }
+    .social-btn img {
+      width: 26px; height: 26px;
+      object-fit: contain;
+    }
+    .social-btn:hover {
+      transform: translateY(-4px) scale(1.08);
+      background: rgba(255,255,255,0.2);
+      border-color: rgba(255,255,255,0.6);
+    }
+    .social-btn:active { transform: scale(0.94); }
+
+    /* ── Quote ── */
+    .quote-block {
+      text-align: center;
+      padding: 20px 24px;
+      border-radius: 20px;
+      border: 1.5px solid rgba(255,255,255,0.15);
+      background: rgba(255,255,255,0.07);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      max-width: 360px;
+      width: 100%;
+    }
+    .quote-icon {
+      font-size: 28px;
+      color: var(--gold);
+      margin-bottom: 8px;
+      line-height: 1;
+      /* decorative quote mark — not emoji-based icon, just typographic */
+    }
+    .quote-text {
+      font-size: 14px;
+      font-weight: 600;
+      color: rgba(255,255,255,0.9);
+      line-height: 1.65;
+    }
+    .quote-text em {
+      font-style: normal;
+      color: var(--gold-light);
+    }
+
+    /* ── Footer ── */
+    .footer {
+      margin-top: 28px;
+      font-size: 11px;
+      color: rgba(255,255,255,0.3);
+      text-align: center;
+      letter-spacing: 0.5px;
+    }
+
+    /* ── Animations ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(22px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .logo-row       { animation: fadeUp 0.5s ease both; }
+    .title-block    { animation: fadeUp 0.5s 0.1s ease both; }
+    .divider        { animation: fadeUp 0.5s 0.15s ease both; }
+    .btn-group      { animation: fadeUp 0.5s 0.22s ease both; }
+    .socials-label,
+    .socials-row    { animation: fadeUp 0.5s 0.32s ease both; }
+    .quote-block    { animation: fadeUp 0.5s 0.4s ease both; }
+
+    @media (max-width: 400px) {
+      .title-main { font-size: 21px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- Corner: Info -->
+<button class="corner-btn left" onclick="showInfo()" aria-label="Info">
+  <img src="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/icons/info-circle.svg" alt="Info"/>
+</button>
+
+<!-- Corner: Share -->
+<button class="corner-btn right" onclick="sharePage()" aria-label="Bagikan">
+  <img src="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/icons/share.svg" alt="Share"/>
+</button>
+
+<div class="page-wrapper">
+  <div class="card">
+
+    <!-- Logos -->
+    <div class="logo-row">
+      <div class="logo-wrap">
+        <img src="logo1.png" alt="Nyizella" onerror="this.src='https://placehold.co/74x74/f5c518/0a0a0a?text=L1'"/>
+      </div>
+      <div class="logo-divider"></div>
+      <div class="logo-wrap">
+        <img src="logo2.png" alt="Sultoni" onerror="this.src='https://placehold.co/74x74/f5c518/0a0a0a?text=L2'"/>
+      </div>
+    </div>
+
+    <!-- Title -->
+    <div class="title-block">
+      <p class="title-sub">✦ Scout Competition 2026 ✦</p>
+      <h1 class="title-main">
+        Dalam Rangka
+        <span>Milangkala ke-10</span>
+      </h1>
+      <p class="title-school">SMK Cibening</p>
+    </div>
+
+    <div class="divider"></div>
+
+    <!-- Main Buttons -->
+    <div class="btn-group">
+
+      <a href="https://drive.google.com/file/d/1m9g2imd4dCb-au33SWw3w7KAsEfXlhaa/view" class="link-btn btn-3">
+        <img class="btn-icon" src="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/icons/journal-bookmark-fill.svg" alt=""/>
+        <span class="btn-label">Juknis Perlombaan</span>
+        <img class="btn-arrow" src="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/icons/chevron-right.svg" alt=""/>
+      </a>
+
+      <a href="https://drive.google.com/drive/folders/17IjRwg8DdlvWiRg6c_eQzwRGYqx1UHLr" class="link-btn btn-3">
+        <img class="btn-icon" src="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/icons/camera2.svg" alt=""/>
+        <span class="btn-label">Dokumentasi</span>
+        <img class="btn-arrow" src="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/icons/chevron-right.svg" alt=""/>
+      </a>
+      </div>
+      <p class="socials-label">REGISTRASI LOMBA</p>
+      <div class="btnq-group">
+      <a href="https://forms.gle/QW7FVyQq3VNCTtf77" class="linq-btn">
+        
+        <span class="btnq-label" align="center">Jelajah Alam</span>
+        
+      </a>
+      
+      <a href="https://forms.gle/H6qxuf5PZSSTnJ2g7" class="linq-btn">
+        
+        <span class="btnq-label" align="center">Foto Media Sosial</span>
+        
+      </a>
+
+    </div>
+
+    <!-- Social Media -->
+    <br>
+    <p class="socials-label">Ikuti Kami</p>
+    <div class="socials-row">
+
+      <a href="https://www.instagram.com/scout_smkcibening?igsh=MTZnOXRjb24wbDZ1dQ==" target="_blank" rel="noopener" class="social-btn" aria-label="Instagram">
+        <img src="https://cdn.jsdelivr.net/npm/simple-icons@9/icons/instagram.svg"
+             alt="Instagram"
+             style="filter: invert(1);"/>
+      </a>
+
+      <a href="https://www.tiktok.com/@scout_of_cibening?_r=1&_t=ZS-958XLDYNQft" target="_blank" rel="noopener" class="social-btn" aria-label="TikTok">
+        <img src="https://cdn.jsdelivr.net/npm/simple-icons@9/icons/tiktok.svg"
+             alt="TikTok"
+             style="filter: invert(1);"/>
+      </a>
+
+    </div>
+
+    <!-- Quote -->
+    <div class="quote-block">
+      <div class="quote-icon" aria-hidden="true" style="font-family:Georgia,serif; font-size:36px; color:var(--gold); line-height:1;">&ldquo;</div>
+      <p class="quote-text">
+        “Orang yang buta terhadap keindahan alam akan kehilangan separuh kenikmatan yang ada di dalam hidupnya.”<br/>
+        <em>Baden-Powell 1857 – 1941</em>
+      </p>
+    </div>
+
+    <p class="footer">© 2026 SMK Cibening · LJA Milangkala ke-10</p>
+
+  </div>
+</div>
+
+<script>
+  function showInfo() {
+    alert(
+      '📌 Scout Competition Milangkala ke-10\nSMK Cibening\n\n' +
+      'Perayaan ulang tahun ke-10 SMK Cibening. Menampilkan berbagai lomba dan kegiatan kreatif siswa.\n\n' +
+      'Untuk informasi lebih lanjut, kunjungi tautan Surat Edaran atau Juknis di website.'
+    );
+  }
+
+  function sharePage() {
+    const shareData = {
+      title: 'Scout Competition Milangkala ke-10 SMK Cibening',
+      text: '*Salam Pramuka!, Mari bantu meriahkan Scout Competition dalam rangka perayaan Milangkala ke-10 SMK Cibening!* Cek info lengkapnya di sini.',
+      url: window.location.href,
+    };
+    if (navigator.share) {
+      navigator.share(shareData).catch(() => {});
+    } else {
+      navigator.clipboard.writeText(window.location.href).then(() => {
+        alert('🔗 Link halaman berhasil disalin ke clipboard!');
+      }).catch(() => {
+        alert('Bagikan halaman ini:\n' + window.location.href);
+      });
+    }
+  }
+</script>
+</body>
+</html>
